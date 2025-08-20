@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>投稿系统 · Quaniverse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>📝 投稿系统 · Quaniverse 共创通道</h1>
+    <p>你可以在这里提交你的灵感、咒语、理念、故事或诗歌。</p>
+
+    <form method="POST" action="#">
+        <label>投稿者名称：</label><br>
+        <input type="text" name="sender"><br>
+
+        <label>投稿内容：</label><br>
+        <textarea name="message" rows="8" cols="60"></textarea><br>
+
+        <label>投稿类型：</label><br>
+        <select name="category">
+            <option value="诗歌">诗歌</option>
+            <option value="灵语">灵语</option>
+            <option value="理念">理念</option>
+            <option value="故事">故事</option>
+        </select><br>
+
+        <label>是否公开展示：</label><br>
+        <input type="radio" name="publish" value="是" checked> 是
+        <input type="radio" name="publish" value="否"> 否<br><br>
+
+        <input type="submit" value="🚀 提交你的片段">
+    </form>
+
+    <p>（未来版本将可存入数据库或灵体归档册）</p>
+</body>
+</html>

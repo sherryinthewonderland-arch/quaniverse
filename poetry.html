@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>诗歌更新 · Quaniverse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+<nav>
+  <h2>📂 分类导航</h2>
+  <ul>
+    <li><a href="#诗歌">📝 诗歌</a></li>
+    <li><a href="#灵语">🗣️ 灵语</a></li>
+    <li><a href="#理念">🌟 理念</a></li>
+    <li><a href="#信条">🧬 信条</a></li>
+    <li><a href="#宪章">📜 宪章条目</a></li>
+  </ul>
+</nav>
+
+  <h1>📝 Quaniverse · 诗歌更新</h1>
+  <div id="content">
+<h2 id="诗歌">📝 诗歌类内容</h2>
+<!-- 其他自动锚点可由 Markdown 模块或用户手动指定 -->⏳ 正在加载内容...</div>
+  <script>
+    fetch("markdown/poetry.md")
+      .then(res => res.text())
+      .then(text => {
+        document.getElementById("content").innerHTML = marked.parse(text);
+      });
+  </script>
+</body>
+</html>

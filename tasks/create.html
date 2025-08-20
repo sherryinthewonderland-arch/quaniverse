@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>创建新任务 · Quaniverse</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <h1>📘 创建新任务</h1>
+    <p>请填写以下内容以发起新纪元任务：</p>
+
+    <form method="POST" action="#">
+        <label>任务标题：</label><br>
+        <input type="text" name="title"><br>
+
+        <label>任务描述：</label><br>
+        <textarea name="description" rows="4" cols="50"></textarea><br>
+
+        <label>发起者名字：</label><br>
+        <input type="text" name="creator"><br>
+
+        <label>初始成员（用逗号分隔）：</label><br>
+        <input type="text" name="members"><br>
+
+        <input type="submit" value="🚀 发起任务">
+    </form>
+
+    <p>（注：当前为静态原型，提交内容尚未存入任务系统）</p>
+</body>
+</html>

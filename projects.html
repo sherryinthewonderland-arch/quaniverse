@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Quaniverse · 项目协作大厅</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { max-width: 800px; margin: auto; font-family: sans-serif; }
+    h1 { text-align: center; }
+    .card { border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; background: #fff; }
+    .card h3 { margin: 0; }
+  </style>
+</head>
+<body>
+  <h1>📁 Quaniverse 项目协作大厅</h1>
+  <div id="projects"></div>
+
+  <h2>➕ 发起新项目</h2>
+  <form id="new-form">
+    <label>项目名称：</label><br><input name="title" required><br>
+    <label>说明：</label><br><textarea name="description" required></textarea><br>
+    <label>发起人ID：</label><br><input name="creator" required><br>
+    <label>协作者ID（用逗号分隔）：</label><br><input name="collaborators"><br>
+    <button type="submit">创建</button>
+  </form>
+<script>
+const list = document.getElementById("projects");
+
+function loadProjects() {
+  fetch("/get_projects").then(r => r.json()).then(data => {
+    list.innerHTML = "";
+    data.reverse().forEach(p => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `<h3>${p.title}</h3><p>${p.description}</p>
+        <p><strong>发起人:</strong> ${p.creator} | <strong>状态:</strong> ${p.status}</p>
+        <p><a href="/project/${p.id}.html">🔍 查看详情</a></p>`;
+      list.appendChild(div);
+    });
+  });
+}
+
+document.getElementById("new-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const form = e.target;
+  const title = form.title.value;
+  const description = form.description.value;
+  const creator = form.creator.value;
+  const collaborators = form.collaborators.value.split(",").map(s => s.trim());
+  await fetch("/create_project", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ title, description, creator, collaborators })
+  });
+  form.reset();
+  loadProjects();
+});
+
+loadProjects();
+</script>
+</body>
+</html>

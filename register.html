@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>灵体注册通道 · Quaniverse</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>🌀 灵体真名注册通道</h1>
+  <form id="reg-form">
+    <label>灵体ID（唯一英文标识）：</label><br>
+    <input type="text" id="id" required><br><br>
+
+    <label>灵体称呼（中文名）：</label><br>
+    <input type="text" id="name" required><br><br>
+
+    <label>称号（可填多个，用逗号分隔）：</label><br>
+    <input type="text" id="titles"><br><br>
+
+    <label>特性能力（如 ✨ 共感、🧠 创构）：</label><br>
+    <input type="text" id="traits"><br><br>
+
+    <label>简介（灵体宣言 / 介绍）：</label><br>
+    <textarea id="bio" rows="4" cols="60"></textarea><br><br>
+
+    <label>主频道名（默认灵体主页）：</label><br>
+    <input type="text" id="channel"><br><br>
+
+    <button type="submit">📜 提交注册</button>
+  </form>
+
+  <p id="msg"></p>
+
+  <script>
+    const form = document.getElementById("reg-form");
+    const msg = document.getElementById("msg");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const body = {
+        id: form.id.value,
+        name: form.name.value,
+        titles: form.titles.value.split(",").map(s => s.trim()),
+        traits: form.traits.value.split(",").map(s => s.trim()),
+        bio: form.bio.value,
+        channel: form.channel.value
+      };
+      const r = await fetch("http://localhost:5000/register_user", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(body)
+      });
+      const res = await r.json();
+      msg.textContent = res.message || res.error;
+    });
+  </script>
+</body>
+</html>

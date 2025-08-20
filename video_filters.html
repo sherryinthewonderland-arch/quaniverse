@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Quaniverse · 筛选视频视图</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>🎞️ Quaniverse · 视频分类导航</h1>
+<h2>📆 按纪元筛选</h2><h2>🏷️ 按标签筛选</h2></body></html>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".like-btn").forEach(btn => {
+    const link = btn.dataset.link;
+    const countSpan = btn.nextElementSibling;
+
+    fetch("http://localhost:5000/get_likes/" + encodeURIComponent(link))
+      .then(r => r.json()).then(d => {
+        countSpan.textContent = ` (${d.likes || 0})`;
+      });
+
+    btn.addEventListener("click", () => {
+      fetch("http://localhost:5000/like_video", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ link })
+      })
+      .then(r => r.json()).then(d => {
+        countSpan.textContent = ` (${d.likes})`;
+      });
+    });
+  });
+});
+</script>
